@@ -59,7 +59,7 @@ module Flammarion
     browser :osx do |options|
       return false unless RbConfig::CONFIG["host_os"] =~ /darwin|mac os/
       executable = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
-      @chrome.in, @chrome.out, @chrome.err, @chrome.thread = Open3.popen3("'#{executable}' --app='#{options[:url]}'")
+      @chrome.in, @chrome.out, @chrome.err, @chrome.thread = Open3.popen3("'#{executable}' --app='#{options[:url]}' --kiosk")
       return true if @chrome.in
     end
 
@@ -88,7 +88,7 @@ module Flammarion
     browser :chrome do |options|
       %w[google-chrome google-chrome-stable chromium chromium-browser chrome].each do |executable|
         next unless which(executable)
-        @chrome.in, @chrome.out, @chrome.err, @chrome.thread = Open3.popen3("#{executable} --app='#{options[:url]}'")
+        @chrome.in, @chrome.out, @chrome.err, @chrome.thread = Open3.popen3("#{executable} --app='#{options[:url]}' --kiosk")
         return true if @chrome.in
       end
       return false
